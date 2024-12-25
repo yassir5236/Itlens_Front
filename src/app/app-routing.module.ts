@@ -7,7 +7,7 @@ import { SurveyEditionsItemComponent } from './features/survey/components/survey
 const routes: Routes = [
   {path: 'surveys', component: SurveyListComponent},
   {path: 'survey-item', component: SurveyItemComponent},
-  {path: 'survey-editions-list', component: SurveyListComponent},
+  // {path: 'survey-editions-list', component: SurveyListComponent},
   {path: 'survey-editions-item', component: SurveyEditionsItemComponent}
 ];
 
