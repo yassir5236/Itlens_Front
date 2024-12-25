@@ -1,0 +1,18 @@
+<div *ngIf="surveys.length > 0; else noSurveys" class="p-4">
+    <h2 class="text-2xl font-semibold mb-4">Surveys List</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Loop through the surveys -->
+      <div *ngFor="let survey of surveys" class="bg-white p-4 border rounded-lg shadow-lg transition transform hover:scale-105 hover:shadow-xl">
+        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ survey.title }} : {{ survey.id }}</h3>
+        <p class="text-gray-600 text-sm">{{ survey.description }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Message to display if no surveys -->
+  <ng-template #noSurveys>
+    <p class="text-gray-500 text-center mt-6">No surveys found.</p>
+  </ng-template>
+
+<!--    -->
