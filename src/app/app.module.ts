@@ -9,6 +9,7 @@ import { SurveyItemComponent } from './features/survey/components/survey-item/su
 import { SurveyEditionsListComponent } from './features/survey/components/survey-editions-list/survey-editions-list.component';
 import { SurveyEditionsItemComponent } from './features/survey/components/survey-editions-item/survey-editions-item.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SubjectComponent } from './features/survey/components/subject/subject.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     SurveyItemComponent,
     SurveyEditionsListComponent,
     SurveyEditionsItemComponent,
+    SubjectComponent,
     
   ],
   imports: [
