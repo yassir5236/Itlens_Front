@@ -10,8 +10,13 @@
       <div *ngIf="survey.surveyEditions?.length > 0">
         <h4 class="text-md font-semibold text-gray-700 mt-2">Editions:</h4>
         <ul>
-          <li *ngFor="let edition of survey.surveyEditions" class="text-gray-600 text-sm">
-            Year: {{ edition.creationDate | date: 'yyyy' }}
+          <li *ngFor="let edition of survey.surveyEditions" class="text-gray-600 text-sm inline">
+            <!-- Pass edition ID as route parameter -->
+            <button 
+              [routerLink]="['/survey-editions-item', edition.id]" 
+              class="bg-green-500 text-white p-2 m-2 rounded-md">
+              {{ edition.creationDate | date: 'yyyy' }}
+            </button>
           </li>
         </ul>
       </div>

@@ -5,6 +5,6 @@ export interface SurveyEdition {
   creationDate: Date,
   startDate: Date,
   year: string,
-  subjects :Subject,
+  subjects :Subject[],
 
 }

@@ -1,0 +1,22 @@
+<div class="max-w-4xl mx-auto p-6 bg-gradient-to-r from-purple-800 via-pink-300 to-red-300 shadow-lg rounded-xl m-10">
+    <h2 class="text-3xl font-extrabold text-white mb-6">Questions for Subsubject {{ subSubjectId }}</h2>
+  
+    <!-- Questions Table -->
+    <table class="table-auto w-full">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 text-left">Question Title</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questions">
+                <td class="px-4 py-2">{{ question.text }}</td>
+                <!-- <td class="px-4 py-2">{{ question.answerCount }}</td> -->
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Loading State -->
+    <p *ngIf="questions.length === 0" class="text-center text-gray-500 mt-6">No questions available...</p>
+</div>

@@ -6,5 +6,5 @@ export interface Question {
   // QuestionType :Type
   questions :Question 
   answerCount : number
-  answers : Answer
+  answers : Answer[]
 }
