@@ -11,6 +11,10 @@ import { SurveyEditionsItemComponent } from './features/survey/components/survey
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SubjectComponent } from './features/survey/components/subject/subject.component';
 import { QuestionComponent } from './features/survey/components/question/question.component';
+import { SubjectQuestionContainerComponent } from './features/survey/components/subject-question-container/subject-question-container.component';
+import { SurveyFormComponent } from './features/survey/components/survey-form/survey-form.component';
+// import { SurveyQuestionContainerComponent } from './features/survey/components/survey-question-container/survey-question-container.component';
+import { FormsModule } from '@angular/forms'; // Importation nécessaire
 
 @NgModule({
   declarations: [
@@ -22,12 +26,17 @@ import { QuestionComponent } from './features/survey/components/question/questio
     SurveyEditionsItemComponent,
     SubjectComponent,
     QuestionComponent,
+    SubjectQuestionContainerComponent,
+    SurveyFormComponent,
+    // SurveyQuestionContainerComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule, 
+
   ],
   providers: [
     // provideClientHydration()

@@ -1,33 +1,70 @@
-<div *ngIf="surveys.length > 0; else noSurveys" class="p-4">
-  <h2 class="text-2xl font-semibold mb-4">Surveys List</h2>
-  
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- Loop through the surveys -->
-    <div *ngFor="let survey of surveys" class="bg-white p-4 border rounded-lg shadow-lg transition transform hover:scale-105 hover:shadow-xl">
-      <h3 class="text-xl font-bold text-gray-800 mb-2">{{ survey.title }} : {{ survey.id }}</h3>
-      <p class="text-gray-600 text-sm">{{ survey.description }}</p>
-      
+<div class="p-6 max-w-7xl mx-auto">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-6">Surveys List</h2>
+
+  <button 
+    class="bg-indigo-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-6 flex items-center gap-2"
+    (click)="openAddSurveyModal()"
+  >
+    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-white">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" fill="#fff"></path>
+    </svg>
+    <span>Ajouter une Survey</span>
+  </button>
+
+  <div *ngIf="surveys.length > 0; else noSurveys" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div *ngFor="let survey of surveys" class="bg-white p-6 border rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300">
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ survey.title }} (ID: {{ survey.id }})</h3>
+      <p class="text-gray-600 text-sm mb-4">{{ survey.description }}</p>
+
       <div *ngIf="survey.surveyEditions?.length > 0">
-        <h4 class="text-md font-semibold text-gray-700 mt-2">Editions:</h4>
-        <ul>
-          <li *ngFor="let edition of survey.surveyEditions" class="text-gray-600 text-sm inline">
-            <!-- Pass edition ID as route parameter -->
+        <h4 class="text-md font-semibold text-gray-700">Editions:</h4>
+        <ul class="space-y-2">
+          <li *ngFor="let edition of survey.surveyEditions">
             <button 
-              [routerLink]="['/survey-editions-item', edition.id]" 
-              class="bg-green-500 text-white p-2 m-2 rounded-md">
+              [routerLink]="['/subject-question-container', edition.id]" 
+              class="bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600">
               {{ edition.creationDate | date: 'yyyy' }}
             </button>
           </li>
         </ul>
       </div>
-      
-      <!-- Message if no editions -->
+
       <p *ngIf="!survey.surveyEditions?.length" class="text-gray-500 text-sm mt-2">No editions available.</p>
+
+      <button
+        class=" text-white rounded-md mt-4  py-2"
+        (click)="deleteSurvey(survey.id)"
+      >
+      <svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M779.5 1002.7h-535c-64.3 0-116.5-52.3-116.5-116.5V170.7h768v715.5c0 64.2-52.3 116.5-116.5 116.5zM213.3 256v630.1c0 17.2 14 31.2 31.2 31.2h534.9c17.2 0 31.2-14 31.2-31.2V256H213.3z" fill="#09162a"></path><path d="M917.3 256H106.7C83.1 256 64 236.9 64 213.3s19.1-42.7 42.7-42.7h810.7c23.6 0 42.7 19.1 42.7 42.7S940.9 256 917.3 256zM618.7 128H405.3c-23.6 0-42.7-19.1-42.7-42.7s19.1-42.7 42.7-42.7h213.3c23.6 0 42.7 19.1 42.7 42.7S642.2 128 618.7 128zM405.3 725.3c-23.6 0-42.7-19.1-42.7-42.7v-256c0-23.6 19.1-42.7 42.7-42.7S448 403 448 426.6v256c0 23.6-19.1 42.7-42.7 42.7zM618.7 725.3c-23.6 0-42.7-19.1-42.7-42.7v-256c0-23.6 19.1-42.7 42.7-42.7s42.7 19.1 42.7 42.7v256c-0.1 23.6-19.2 42.7-42.7 42.7z" fill="#000000"></path></g></svg>      </button>
     </div>
   </div>
 </div>
 
-<!-- Message to display if no surveys -->
 <ng-template #noSurveys>
-  <p class="text-gray-500 text-center mt-6">No surveys found.</p>
+  <p class="text-gray-500 text-center mt-6">Aucune enquête trouvée.</p>
 </ng-template>
+
+<div *ngIf="isAddSurveyModalOpen" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Ajouter une Survey</h3>
+    <form (ngSubmit)="addSurvey()">
+      <div class="mb-4">
+        <label for="title" class="block text-gray-700 font-semibold mb-2">Titre</label>
+        <input id="title" [(ngModel)]="newSurvey.title" name="title" type="text" class="border p-3 rounded-md w-full focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700 font-semibold mb-2">Description</label>
+        <textarea id="description" [(ngModel)]="newSurvey.description" name="description" class="border p-3 rounded-md w-full focus:ring-2 focus:ring-indigo-500" required></textarea>
+      </div>
+
+      <div class="flex justify-end space-x-4">
+        <button type="button" (click)="closeAddSurveyModal()" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600">
+          Annuler
+        </button>
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+
+<div class="flex">
+
+    <div class="w-[50%]">
+      <app-survey-editions-item
+        (subSubjectClicked)="onSubSubjectSelected($event)"
+      >
+      </app-survey-editions-item>
+    </div>
+  
+    <div class="w-full">
+      <app-question 
+        [subSubjectId]="selectedSubSubjectId || null"
+      ></app-question>
+    </div>
+  
+  </div>
+  

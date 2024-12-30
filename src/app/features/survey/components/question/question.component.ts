@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // To get the route parameter
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { QuestionService } from './../../services/question.service';
 import { Question } from '../../models/question.model';
 
@@ -8,25 +7,33 @@ import { Question } from '../../models/question.model';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-export class QuestionComponent implements OnInit {
-  subSubjectId!: number; // non-null assertion
-  questions: Question[] = []; // Define it as an array of `Question`
+export class QuestionComponent implements OnChanges {
+  @Input() subSubjectId: number | null = null; 
+  questions: Question[] = [];
+  loading: boolean = true;
 
-  constructor(
-    private route: ActivatedRoute, // To access the route parameters
-    private questionService: QuestionService // To fetch questions from the API
-  ) {}
+  constructor(private questionService: QuestionService) {}
 
-  ngOnInit(): void {
-    // Get the subSubjectId from the route parameters
-    this.subSubjectId = +this.route.snapshot.paramMap.get('subSubjectId')!;
-    this.loadQuestions();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['subSubjectId']) {
+      if (this.subSubjectId) {
+        this.loadQuestions();
+      } else {
+        this.questions = [];
+        this.loading = false;
+      }
+    }
   }
 
   loadQuestions(): void {
-    // Fetch questions for the subSubjectId
-    this.questionService.getQuestionsBySubSubjectId(this.subSubjectId).subscribe((questions) => {
-      this.questions = questions;
-    });
+    if (this.subSubjectId) {
+      this.loading = true;
+      this.questionService
+        .getQuestionsBySubSubjectId(this.subSubjectId)
+        .subscribe((questions) => {
+          this.questions = questions;
+          this.loading = false;
+        });
+    }
   }
 }
